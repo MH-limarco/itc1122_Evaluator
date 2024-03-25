@@ -11,10 +11,11 @@ This is presented as my first practical exercise, and feedback or issues are wel
 </p>
 
 * [**Documentation**](#Documentation)
+* [**Getting started**](#Getting-started)
 * [**Introduction to structure**](#introduction-to-structure)
 * [**Customize your process**](#customize-your-process)
 * [**main results**](#main-results)
-* [**getting started**](#getting-started)
+
 
 
 ## <div align="center">Documentation</div>
@@ -36,6 +37,8 @@ pip install pandas
 For alternative installation methods including [Conda](https://anaconda.org/conda-forge/pandas), and Git.
 
 </details>
+
+## <div align="center">Getting started</div>
 
 <details open>
 <summary>Usage</summary>
@@ -109,7 +112,7 @@ You need to customize your configuration file so that the script knows where you
 |    re_format    |                 -                  | re format for value extraction                                                           |
 </details>
 
-## Create a structure yaml.
+## Customize your Architecture.
 
 <details open>
 <summary>structure.yaml</summary>
