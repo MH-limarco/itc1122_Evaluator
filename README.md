@@ -10,9 +10,9 @@ This is presented as my first practical exercise, and feedback or issues are wel
   <img src="assets/modular.png" alt="erf" width="100%">
 </p>
 
-* [**updates**](#white_check_mark-updates)
-* [**abstract**](#abstract)
-* [**overview**](#overview--derivations)
+* [**Documentation**](#Documentation)
+* [**Introduction to structure**](#Introduction to structure)
+* [**Customize your process**](#Customize your process)
 * [**main results**](#main-results)
 * [**getting started**](#getting-started)
 
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 python
 </details>
 
-### <div align="center">Introduction to structure</div>
+## <div align="center">Introduction to structure</div>
 
 |                |                                                                      ⭐instruction⭐                                                                        |
 |:--------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -82,7 +82,7 @@ python
 #### Here is the architecture example for `cfg/structure_pe1` and `cfg/structure_pe1`.
 You can build your own structure.yaml according to your requirements
 
-## Customize your process
+## Customize your process ##
 
 <details open>
 <summary>setting.yaml</summary>
