@@ -109,6 +109,12 @@ You need to customize your configuration file so that the script knows where you
 |    re_format    |                 -                  | re format for value extraction                                                           |
 </details>
 
+### Create a structure yaml.
+<details open>
+<summary>structure.yaml</summary>
+
+</details>
+
 
 
 
