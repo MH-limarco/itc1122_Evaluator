@@ -61,7 +61,7 @@ if __name__ == '__main__':
     config = "setting/pe1.yaml" ##Description of the location of the file
     main(config)    ##run script
 ```
-python
+
 </details>
 
 ## <div align="center">Introduction to structure</div>
