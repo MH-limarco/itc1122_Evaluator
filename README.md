@@ -113,6 +113,18 @@ You need to customize your configuration file so that the script knows where you
 <details open>
 <summary>structure.yaml</summary>
 
+You need to customize ...
+
+|                 |                          example                          | definition |
+|:---------------:|:---------------------------------------------------------:|:-----------|
+|       input_dim       |                             1                             | ...        |
+|     input_key     |                   [['richter','value']]                   | ...        |
+|      output_key       |  ['richter', 'joules', 'tnt', ['lunches', 'nutritious']]  | ...        |
+|      output_offset_thr       |                       [0, 15, 2, 5]                       | ...        |
+|      setup       |                  - [-1, sp_info, []]...                   | ...        |
+|      exmaple       |          - [[-2, 0], ev_command_run, [True]]...           | ...        |
+|      evaluator       |          - [[-2, 0], ev_command_run, [False]]...          | ...        |
+|      output       |                - [-2, ot_df_concat, []]...                | ...        |
 </details>
 
 

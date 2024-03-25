@@ -9,7 +9,6 @@ cpu_num:  -1  #設定並行模式時調用的核心數量 -(默認核心數的�
 test_path: data/1122_H210301-PE1上傳區-20240314  #批改檔路徑
 exmaple_path: exmaple/exmaple_pe1.py   #exmaple路徑
 
-save_output_path: log/exmaple_pe1.txt    #exmaple輸出檔路徑
 save_check_path: check_file/pe1 #需檢查檔案目錄
 save_csv_path: output/exmaple_pe1.csv   #批改檔路徑
 
