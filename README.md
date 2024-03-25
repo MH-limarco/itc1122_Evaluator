@@ -11,8 +11,8 @@ This is presented as my first practical exercise, and feedback or issues are wel
 </p>
 
 * [**Documentation**](#Documentation)
-* [**Introduction to structure**](#Introduction to structure)
-* [**Customize your process**](#Customize your process)
+* [**Introduction to structure**](#introduction-to-structure)
+* [**Customize your process**](#customize-your-process)
 * [**main results**](#main-results)
 * [**getting started**](#getting-started)
 
