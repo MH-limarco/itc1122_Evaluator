@@ -17,8 +17,9 @@ def ot_df_agg(df, int_col=4, group_col = 2):
     return df.groupby(list(df.columns[:group_col])).agg(agg_ls)
 def ot_save_df(df, INPUT, int_col=4, encoding='utf_8_sig'):
     save_PATH = INPUT['save_PATH']
-    df.to_csv(save_PATH, encoding=encoding)
+    ut_check_dir(save_PATH.split('{}'))
 
+    df.to_csv(save_PATH, encoding=encoding)
     condition = df[df.columns[int_col:]].sum(axis=1) < len(df.columns[int_col:])
     return condition
 

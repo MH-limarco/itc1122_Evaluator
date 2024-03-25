@@ -91,35 +91,24 @@ You can build your own structure.yaml according to your requirements
 
 You need to customize your configuration file so that the script knows where your architecture files are, where to input and output, and the settings for execution.
 
-```yaml
-##Basic profile
-cfg:  #Architecture file PATH
-timeout:   #ttime-out time
+|                 |              example               | definition                                                                               |
+|:---------------:|:----------------------------------:|:-----------------------------------------------------------------------------------------|
+|       cfg       |       cfg/structure_pe1.yaml       | Architecture file PATH                                                                   |
+|     timeout     |                 3                  | time-out time                                                                            |
+|      mode       |                 mp                 | {mp:parallel, sigle:single-core} -(default single-core)                                  |
+|     cpu_num     |                 -1                 | Number of cores called when setting parallel mode - (half the default number of threads) |
+|    test_path    | data/1122_H210301-PE1上傳區-20240314  | Requires scoring file PATH                                                               |
+|  exmaple_path   |       exmaple/exmaple_pe1.py       | exmaple PATH                                                                             |
+| save_check_path |           check_file/pe1           | abnormal file directory                                                                  | 
+|  save_csv_path  |       output/exmaple_pe1.csv       | Rating .csv PATH                                                                         |
+|    nan_value    |               -99999               | Missing values                                                                           |
+|    least_col    |                 -1                 | Minimum number of columns                                                                |
+|   file_format   |                .py                 | Required file format                                                                     |
+|   test_input    | [[4.3], [5], [6.2], [7.2], [3.5]]  | Input data available for evaluate                                                        |
+|    find_path    |                 -                  | glob - Search formula                                                                    |
+|    re_format    |                 -                  | re format for value extraction                                                           |
+</details>
 
-mode:     #{mp:parallel, sigle:single-core} -(default single-core)
-cpu_num:    #Number of cores called when setting parallel mode - (half the default number of threads)
-
-##Read and write settings
-test_path:   #Requires scoring file PATH
-exmaple_path:    #exmaple PATH
-
-save_output_path:     #exmaple output PATH
-save_check_path:  #abnormal file directory
-save_csv_path:    #Rating .csv PATH
-
-##Advanced settings
-nan_value:  #Missing values
-least_col:   #Minimum number of columns
-file_format:   #Required file format
-
-##Input setting
-test_input:  #Input data available for evaluate
-
-##Search formula
-find_path: '/*/*' #glob - Search formula
-re_format: (\d+\.\d+|\de\d+|\d+)\s* #re format for value extraction
-
-```
 
 
 
