@@ -1,7 +1,9 @@
 from src import *
 from itertools import compress
+from pathlib import Path
 import pandas as pd
 import shutil
+
 
 def ot_df_concat(INPUT):
     df_list = INPUT['df_list']
@@ -17,7 +19,8 @@ def ot_df_agg(df, int_col=4, group_col = 2):
     return df.groupby(list(df.columns[:group_col])).agg(agg_ls)
 def ot_save_df(df, INPUT, int_col=4, encoding='utf_8_sig'):
     save_PATH = INPUT['save_PATH']
-    ut_check_dir(save_PATH.split('{}'))
+
+    ut_check_dir('/'.join(str(Path(save_PATH)).split(os.sep)[:-1]))
 
     df.to_csv(save_PATH, encoding=encoding)
     condition = df[df.columns[int_col:]].sum(axis=1) < len(df.columns[int_col:])
@@ -31,7 +34,7 @@ def ot_save_file(condition, INPUT, encoding='utf_8_sig'):
 
     for file, note in tqdm(zip(files, foot_notes)):
         move_path = file.replace(test_PATH, save_check_PATH)
-        ut_check_dir(move_path)
+        ut_check_dir('/'.join(str(Path(move_path)).split(os.sep)[:-1]))
         shutil.copy(file, move_path)
 
         with open(f"{move_path}.txt", 'w+',encoding=encoding) as txt:
