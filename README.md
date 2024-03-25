@@ -109,9 +109,12 @@ You need to customize your configuration file so that the script knows where you
 |    re_format    |                 -                  | re format for value extraction                                                           |
 </details>
 
-### Create a structure yaml.
+## Create a structure yaml.
+
 <details open>
 <summary>structure.yaml</summary>
+
+### Create a structure yaml.
 
 You need to customize ...
 
@@ -125,6 +128,7 @@ You need to customize ...
 |      exmaple       |          - [[-2, 0], ev_command_run, [True]]...           | ...        |
 |      evaluator       |          - [[-2, 0], ev_command_run, [False]]...          | ...        |
 |      output       |                - [-2, ot_df_concat, []]...                | ...        |
+
 </details>
 
 
