@@ -1,0 +1,55 @@
+#Introduction to computers, pe1 structure setting
+
+##Parameters
+input_dim : 2
+input_key: ['amount', ['membership', 'level']]
+output_key: ['Regular', 'Gold', ['Invalid', 'level']]
+
+output_offset_thr: [0.5]
+
+##System_blueprint
+# from_idx:
+# - -1: pass value
+# - -2: step input
+# - other: module idx
+
+
+setup:
+  # [from_idx, module, args] #idx
+  # [-2, sp_setup_args, []] #0 (build-in)
+
+  - [-1, sp_info, []] #1
+  - [0, sp_find_input_dim, []] #2
+  - [0, sp_setup_keyword, []] #3
+
+exmaple:
+  # step-input: test_input[x]
+  - [[-2, 0], ev_command_run, [True]] #4
+
+  - [[-1, 0, 2], ev_info_extract, []]
+  - [[-1, 3], ev_keyword_extract, []] #6
+
+  - [[4, 0], ev_error_check, []] #7
+
+evaluator:
+  # step-input: {test_path[x], test_input[x]}
+  - [[-2, 0], ev_command_run, [False]] #9
+
+  - [[-1, 0, 2], ev_info_extract, []]
+  - [[-1, 3], ev_keyword_extract, []] #11
+
+  - [-2, ev_read_footnote, []] #12
+  - [[9, 0], ev_error_check, []] #13
+
+  - [[6, 11, -1], concat, []] #14
+  - [[-1, 0], ev_main_check, []]  #15
+  - [[-2, -1, 0, 12], ev_output_formatting, []] #16
+
+output:
+  # step-input: {df_list, save_PATH}
+  - [-2, ot_df_concat, []] #17
+
+  - [-1, ot_df_agg, []]
+
+  - [[-1, -2], ot_save_df, []]
+  - [[-1, -2], ot_save_file, []]

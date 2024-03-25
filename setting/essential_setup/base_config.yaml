@@ -1,0 +1,13 @@
+##
+format_ls: [0, 1, 2, 4, 3, 5, 6]
+
+##cmd
+cmd_setting:
+  text: True
+  shell: False
+  capture_output: True
+  errors: backslashreplace
+  timeout: 5
+
+
+
