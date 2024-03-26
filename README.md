@@ -6,10 +6,11 @@ pe-Evaluator is an automated code grading framework based on the Python language
 
 This is presented as my first practical exercise, and feedback or issues are welcome on GitHub.
 
-* [**Documentation**](#Documentation)
-* [**Getting started**](#Getting-started)
-* [**Introduction to structure**](#Introduction-to-structure)
-* [**Customize your process**](#Customize-your-process)
+* [**Documentation**](#documentation)
+* [**Getting started**](#getting-started)
+* [**Introduction to structure**](#introduction-to-structure)
+* [**Customize your process**](#customize-your-process)
+
 
 ## <div align="center">👟Open modular framework</div>
 <p ="center">
@@ -85,8 +86,8 @@ if __name__ == '__main__':
 
 #### Here is the architecture example for `cfg/structure_default.yaml`.
 You can build your own structure.yaml according to your requirements
-
-## <div align="center">✍️Customize your process</div>
+✍️
+## <div align="center">Customize your process</div>
 <details open>
 <summary>setting.yaml</summary>
 
