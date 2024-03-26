@@ -34,23 +34,22 @@ def Evaluator(PATH, debug):
 
     ut_logging_begin(info, input_dim)
 
-    if mode in ['mp', 'multi']:
+    if mode_dir[mode] == '並行':
         _core = multi_processing
-    elif mode in ['sigle', 'sp']:
+    elif mode_dir[mode] == '單核':
         _core = sigle_processing
 
     dfs = []
     for in_v in tqdm(test_input, position=0, leave=True, ascii=True):
-
         in_v = [i.replace('/*', '*') if type(i) == str else i  for i in in_v]
         pipeline = exmaple_step(pipeline, in_v)
+
         if debug:
-            print(pipeline[list(pipeline.keys())[-2]],pipeline[list(pipeline.keys())[-1]])
+            dfs.append([pipeline[list(pipeline.keys())[-2]],
+                        pipeline[list(pipeline.keys())[-1]]])
         else:
             df, foot_notes = _core(file=file, pipeline=pipeline, in_v=in_v)
             dfs.append(df)
-
-    if debug: return None
 
     pass_value = output_step(pipeline, dfs,
                     foot_notes, file, test_PATH,
@@ -82,7 +81,7 @@ def multi_processing(file, pipeline, in_v):
 def sigle_processing(file, pipeline, in_v):
     output_ls = []
     foot_note = []
-    for fi in tqdm(file):
+    for fi in tqdm(file, position=0):
         output_l, output_fn = evaluator_step(pipeline.copy(), fi, in_v)
         output_ls.append(output_l)
         foot_note.append(output_fn)

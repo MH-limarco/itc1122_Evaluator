@@ -1,5 +1,4 @@
 import subprocess, inspect
-import time
 from itertools import chain
 
 from src import *
@@ -40,9 +39,7 @@ def ut_get_default_args(func):
     return {k: v.default for k, v in signature.parameters.items()
                          if v.default is not inspect.Parameter.empty}
 
-
 def ut_logging_begin(info, input_dim):
-
     logging.info(f"\nos: {os_dir[info['os']]}\n"
                  f"mode: {mode_dir[info['mode']]}\n"
                  f"核心最大調用: {info['cpu_num']}\n"
@@ -52,20 +49,10 @@ def ut_logging_begin(info, input_dim):
                  f"有效輸入維度: {input_dim[0]}\n"
                  f"=============開始運作=============")
 
-
-
 def ut_print_end(info, pass_value, start_time):
-
     logging.info(f"\n=============運作結束=============\n"
                  f"運作時間: {round((time.monotonic() - start_time),3)}s\n"
                  f"csv檔位置: {info['save_csv_PATH']}\n"
                  f"異常檔案位置: {info['save_check_PATH']}\n"
                  f"異常檔案數量: {pass_value}\n"
                  )
-
-
-
-
-
-
-
