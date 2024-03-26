@@ -1,5 +1,5 @@
 ##基礎設定檔
-cfg: cfg/structure_pe2.yaml #架構檔位置
+cfg: cfg/structure_default.yaml #架構檔位置
 timeout: 5  #time-out 時間
 
 mode: mp    #{mp:並行模式, sigle:單核模式} -(默認單核模型)
@@ -19,7 +19,12 @@ least_col: -1  #最小欄位數量
 file_format: .py  #要求檔案格式
 
 ##批改設定
-test_input: [[500, Gold],[5678, Regular],[2537, Gold], [999, Platinum]]  #批改使用的輸入資料
+test_input: [[500, Platinum],[5678, Regular],[2537, Gold], [999, Platinum]]  #批改使用的輸入資料
+
+input_key: ['amount', ['membership', 'level']]
+output_key: ['Regular', 'Gold', ['Invalid', 'level']]
+
+output_offset_thr: [0.5]
 
 ##檔案搜索
 find_path: '/*/*' # glob format

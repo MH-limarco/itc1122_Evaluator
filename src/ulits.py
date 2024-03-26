@@ -41,7 +41,7 @@ def ut_get_default_args(func):
                          if v.default is not inspect.Parameter.empty}
 
 
-def ut_logging_begin(info):
+def ut_logging_begin(info, input_dim):
 
     logging.info(f"\nos: {os_dir[info['os']]}\n"
                  f"mode: {mode_dir[info['mode']]}\n"
@@ -49,6 +49,7 @@ def ut_logging_begin(info):
                  f"檔案數量: {info['file_len']}\n"
                  f"設定檔: {info['setting_PATH']}\n"
                  f"架構檔: {info['structure_PATH']}\n"
+                 f"有效輸入維度: {input_dim[0]}\n"
                  f"=============開始運作=============")
 
 

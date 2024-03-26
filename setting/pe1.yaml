@@ -1,5 +1,5 @@
 ##基礎設定檔
-cfg: cfg/structure_pe1.yaml #架構檔位置
+cfg: cfg/structure_default.yaml #架構檔位置
 timeout: 3  #time-out 時間
 
 mode: mp    #{mp:並行模式, sigle:單核模式} -(默認單核模型)
@@ -19,6 +19,11 @@ file_format: .py   #要求檔案格式
 
 ##批改設定
 test_input: [[4.3], [5], [6.2], [7.2], [3.5]]   #批改能使用的輸入資料 -(輸入數據避免少於 4 以免腳本檢測出錯)
+
+input_key: [['richter','value']]
+output_key: ['richter', 'joules', 'tnt', ['lunches', 'nutritious']]
+
+output_offset_thr: [0, 15, 2, 5]
 
 ##搜索條件
 find_path: '/*/*'

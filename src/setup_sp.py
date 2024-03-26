@@ -60,6 +60,6 @@ def sp_keyword_(str_dir):
 
 
 def sp_setup_keyword(args):
-    in_dir = args['sett_structure'].get('input_key')
-    out_dir = args['sett_structure'].get('output_key')
+    in_dir = args['sett_'].get('input_key')
+    out_dir = args['sett_'].get('output_key')
     return {'in_dir': sp_keyword_(in_dir),'out_dir': sp_keyword_(out_dir)}

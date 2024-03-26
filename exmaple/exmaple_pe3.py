@@ -6,7 +6,7 @@ def main():
         second_ = float(input('Enter the second number: '))
         operation = input('Select an arithmetic operation (+, -, *, /): ')
         try:
-            print(eval(f"{first_} {operation} {second_}"))
+            print(f'Result: {eval(f"{first_} {operation} {second_}")}')
 
         except ZeroDivisionError:
             print('Error: Division by zero')

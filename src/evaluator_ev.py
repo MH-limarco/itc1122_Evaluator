@@ -36,9 +36,16 @@ def ev_info_extract(std, args, in_dim, cut_off=-1):
     re_format = re.compile(args['sett_']['re_format'])
     col_num, nan_value = args['sett_']['least_col'], args['sett_']['nan_value']
 
-    stdout = stdout.split('\n')[:cut_off]
+    stdout = stdout.split('\n')
+    if len(stdout[-1]) == 0:
+        stdout = stdout[:-1]
+
+    stdout = '\n'.join(stdout)
     if len(stdout) > 0:
-        stdin = dict(zip(stdout[0].split(':')[:in_dim], repeat(0)))
+        stdin = stdout.split(':')[:in_dim]
+        stdout = stdout.replace(':'.join(stdin), '').split('\n')
+
+        stdin = dict(zip(stdin, repeat(0)))
         stdout[0] = stdout[0].replace(':'.join(stdin), '')
 
         value_extract = lambda x: re.findall(re_format, x)
@@ -124,7 +131,7 @@ def ev_main_check(dirs_, args):
     out_check = list(ev_dir_check_(dirs_[0][1], dirs_[1][1]))
 
     if type(out_check[2]) == dict:
-        offset_thr = dict(zip(out_check[2].keys(), args['sett_structure']['output_offset_thr']))
+        offset_thr = dict(zip(out_check[2].keys(), args['sett_']['output_offset_thr']))
         out_check[2] = {key_:out_check[2][key_] <= offset_thr[key_] if key_ in offset_thr.keys() else True
                                                                             for key_ in out_check[-1].keys()}
 

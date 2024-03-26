@@ -1,18 +1,10 @@
-#Introduction to computers, pe1 structure setting
+###pe-Evaluator Architecture setting
 
-##Parameters
-input_dim : 2
-input_key: ['amount', ['membership', 'level']]
-output_key: ['Regular', 'Gold', ['Invalid', 'level']]
-
-output_offset_thr: [0.5]
-
-##System_blueprint
+##blueprint-idx
 # from_idx:
 # - -1: pass value
 # - -2: step input
 # - other: module idx
-
 
 setup:
   # [from_idx, module, args] #idx
@@ -46,7 +38,7 @@ evaluator:
   - [[-2, -1, 0, 12], ev_output_formatting, []] #16
 
 output:
-  # step-input: {df_list, save_PATH}
+  # step-input: {df_list, save_PATH, save_PATH}
   - [-2, ot_df_concat, []] #17
 
   - [-1, ot_df_agg, []]
