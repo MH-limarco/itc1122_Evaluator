@@ -86,8 +86,8 @@ if __name__ == '__main__':
 
 #### Here is the architecture example for `cfg/structure_default.yaml`.
 You can build your own structure.yaml according to your requirements
-✍️
-## <div align="center">Customize your process</div>
+
+## <div align="center">✍️Customize your process</div>
 <details open>
 <summary>setting.yaml</summary>
 
