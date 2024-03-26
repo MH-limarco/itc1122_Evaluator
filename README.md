@@ -8,9 +8,8 @@ This is presented as my first practical exercise, and feedback or issues are wel
 
 * [**Documentation**](#Documentation)
 * [**Getting started**](#Getting-started)
-* [**Introduction to structure**](#introduction-to-structure)
-* [**Customize your process**](#customize-your-process)
-* [**Customize your process**](#customize-your-process)
+* [**Introduction to structure**](#Introduction-to-structure)
+* [**Customize your process**](#Customize-your-process)
 
 ## <div align="center">👟Open modular framework</div>
 <p ="center">
