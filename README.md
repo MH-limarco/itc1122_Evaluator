@@ -9,7 +9,7 @@ This is presented as my first practical exercise, and feedback or issues are wel
 * [**Documentation**](#documentation)
 * [**Getting started**](#getting-started)
 * [**Introduction to structure**](#introduction-to-structure)
-* [**Customize your process**](#customize-your-process)
+* [**Customize your process**](#✍️customize-your-process)
 
 
 ## <div align="center">👟Open modular framework</div>
