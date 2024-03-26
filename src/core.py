@@ -51,6 +51,9 @@ def Evaluator(PATH, debug):
             df, foot_notes = _core(file=file, pipeline=pipeline, in_v=in_v)
             dfs.append(df)
 
+    if debug:
+        [print(i) for i in dfs]
+        return None
     pass_value = output_step(pipeline, dfs,
                     foot_notes, file, test_PATH,
                     info['save_csv_PATH'],
