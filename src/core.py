@@ -71,9 +71,8 @@ def multi_processing(file, pipeline, in_v):
     output_ls = [i[0] for i in output]
     foot_note = [i[1] for i in output]
     df = pd.DataFrame(output_ls)
-    exmaple_dir = pipeline[list(pipeline.keys())[-1]]
+    exmaple_dir = pipeline[list(pipeline.keys())[-2]]
 
-    print(df)
     exmaple_format = {"輸入":len(exmaple_dir[0]), "輸出": len(exmaple_dir[1])}
     check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in type_format[_key] for _idx in range(_len)]
     df.columns = base_format + check_format
@@ -89,7 +88,7 @@ def sigle_processing(file, pipeline, in_v):
         foot_note.append(output_fn)
 
     df = pd.DataFrame(output_ls)
-    exmaple_dir = pipeline[list(pipeline.keys())[-1]]
+    exmaple_dir = pipeline[list(pipeline.keys())[-2]]
 
     exmaple_format = {"輸入":len(exmaple_dir[0]), "輸出": len(exmaple_dir[1])}
     check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in type_format[_key] for _idx in range(_len)]
