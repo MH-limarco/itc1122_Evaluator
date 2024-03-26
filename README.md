@@ -48,10 +48,11 @@ For alternative installation methods including [Conda](https://anaconda.org/cond
 pe-Evaluator may be used directly in the Command Line Interface (CLI) with a python command:
 
 ```bash
-python main.py -config pe1.py
+python main.py -config pe1.py -debug False
 ```
 
 `-config` Description of the location of the file
+`-debug` Description of running tasks
 
 ### Python
 
@@ -62,7 +63,8 @@ from src.core import main
 
 if __name__ == '__main__':
     config = "setting/pe1.yaml" ##Description of the location of the file
-    main(config)    ##run script
+    debug = False
+    main(config, debug)    ##run script
 ```
 
 </details>

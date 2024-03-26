@@ -19,7 +19,7 @@ least_col: -1  #最小欄位數量
 file_format: .py  #要求檔案格式
 
 ##批改設定
-test_input: [[3,9,+,yes],[8,0,-,yes],[8,5, /*,yes],[6,2.5,/,no]]  #批改使用的輸入資料
+test_input: [[3,9,+,yes],[8,0,/,yes],[8,5, /*,yes],[6,2.5,/,no]]  #批改使用的輸入資料
 
 input_key: ['first', 'second', ['arithmetic', 'operation'], 'result']
 output_key: [['Division'], ['perform', 'another', 'calculation']]
