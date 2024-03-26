@@ -2,17 +2,18 @@ import time
 
 from src import *
 
-def main(config = "setting/pe1.yaml"):
-    args = input_args(config)
-    Evaluator(args.c)
+def main(config, debug):
+    args = input_args(config, debug)
+    Evaluator(args.config, args.debug)
 
-def input_args(default = "setting/pe1.yaml"):
+def input_args(default = "setting/pe1.yaml", debug = False):
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", help = "input setting yaml path", default=default)
+    parser.add_argument("-config", help = "input setting yaml path", default=default)
+    parser.add_argument("-debug", help=" ", default=debug)
     args = parser.parse_args()
     return args
 
-def Evaluator(PATH):
+def Evaluator(PATH, debug):
     start_time = time.monotonic()
     logging.basicConfig(level=logging.INFO,
                         format='%(message)s')
@@ -35,15 +36,22 @@ def Evaluator(PATH):
         _core = sigle_processing
 
     dfs = []
+    if debug:
+        test_input = [test_input[0]]
     for in_v in tqdm(test_input, position=0, leave=True, ascii=True):
         pipeline = exmaple_step(pipeline, in_v)
+        if debug:
+            print(pipeline)
+            return None
+
         df, foot_notes = _core(file=file, pipeline=pipeline, in_v=in_v)
         dfs.append(df)
 
+
     pass_value = output_step(pipeline, dfs,
-                foot_notes, file, test_PATH,
-                info['save_csv_PATH'],
-                info['save_check_PATH'])
+                    foot_notes, file, test_PATH,
+                    info['save_csv_PATH'],
+                    info['save_check_PATH'])
 
     ut_print_end(info, pass_value, start_time)
 

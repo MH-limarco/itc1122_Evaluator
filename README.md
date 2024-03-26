@@ -48,7 +48,7 @@ For alternative installation methods including [Conda](https://anaconda.org/cond
 pe-Evaluator may be used directly in the Command Line Interface (CLI) with a python command:
 
 ```bash
-python main.py -c pe1.py
+python main.py -config pe1.py
 ```
 
 `-config` Description of the location of the file

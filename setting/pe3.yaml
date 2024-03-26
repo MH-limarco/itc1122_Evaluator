@@ -1,0 +1,26 @@
+##基礎設定檔
+cfg: cfg/structure_pe1.yaml #架構檔位置
+timeout: 5  #time-out 時間
+
+mode: mp    #{mp:並行模式, sigle:單核模式} -(默認單核模型)
+cpu_num:  -1  #設定並行模式時調用的核心數量 -(默認核心數的一半)
+
+##讀檔設定
+test_path:   #批改檔路徑
+exmaple_path: exmaple/exmaple_pe3.py  #exmaple路徑
+
+save_output_path: exmaple/exmaple_pe3.txt    #exmaple輸出檔路徑
+save_check_path: check_file/pe3 #需檢查檔案目錄
+save_csv_path: output/exmaple_pe3.csv   #批改檔路徑
+
+##進階設定
+nan_value: -99999 #缺失值
+least_col: -1  #最小欄位數量
+file_format: .py  #要求檔案格式
+
+##批改設定
+test_input: [[500, Gold],[5678, Regular],[2537, Gold], [999, Platinum]]  #批改使用的輸入資料
+
+##檔案搜索
+find_path: '/*/*' # glob format
+re_format: (\d+\.\d+|\de\d+|\d+)\s* #數值搜索條件
