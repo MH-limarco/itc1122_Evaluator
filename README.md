@@ -112,25 +112,41 @@ You need to customize your configuration file so that the script knows where you
 |    re_format    |                 -                  | re format for value extraction                                                           |
 </details>
 
-## Customize your Architecture.
-
 <details open>
 <summary>structure.yaml</summary>
 
 ### Create a structure yaml.
 
-You need to customize ...
+You need to customize your architecture file so that the script knows what structure it should build, along with some necessary initial values.
 
-|                 |                          example                          | definition |
-|:---------------:|:---------------------------------------------------------:|:-----------|
-|       input_dim       |                             1                             | ...        |
-|     input_key     |                   [['richter','value']]                   | ...        |
-|      output_key       |  ['richter', 'joules', 'tnt', ['lunches', 'nutritious']]  | ...        |
-|      output_offset_thr       |                       [0, 15, 2, 5]                       | ...        |
-|      setup       |                  - [-1, sp_info, []]...                   | ...        |
-|      exmaple       |          - [[-2, 0], ev_command_run, [True]]...           | ...        |
-|      evaluator       |          - [[-2, 0], ev_command_run, [False]]...          | ...        |
-|      output       |                - [-2, ot_df_concat, []]...                | ...        |
+|                    |                          example                          | definition                        |
+|:------------------:|:---------------------------------------------------------:|:----------------------------------|
+|     input_dim      |                             1                             | input dimension                   |
+|     input_key      |                   [['richter','value']]                   | input key words dict              |
+|     output_key     |  ['richter', 'joules', 'tnt', ['lunches', 'nutritious']]  | output key words dict             |
+| output_offset_thr  |                       [0, 15, 2, 5]                       | Output decision threshold         |
+|       setup        |                  - [-1, sp_info, []]...                   | Setup-step blueprint settings     |
+|      exmaple       |          - [[-2, 0], ev_command_run, [True]]...           | Exmaple-step blueprint settings   |
+|     evaluator      |          - [[-2, 0], ev_command_run, [False]]...          | Evaluator-step blueprint settings |
+|       output       |                - [-2, ot_df_concat, []]...                | Output-step blueprint settings    |
+
+#### blueprint-format
+
+```angular2html
+blueprint-format
+- [from_idx, module, args] #idx
+```
+
+#### blueprint-idx
+
+```angular2html
+from_idx:
+- -1: pass value
+- -2: step input
+- other: module idx
+```
+
+For existing modules, you can learn more by visiting the [[**Doc**]](assets%2FREADME.md).
 
 </details>
 

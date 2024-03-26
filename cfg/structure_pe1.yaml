@@ -7,7 +7,7 @@ output_key: ['richter', 'joules', 'tnt', ['lunches', 'nutritious']]
 
 output_offset_thr: [0, 15, 2, 5]
 
-##System_blueprint
+##blueprint-idx
 # from_idx:
 # - -1: pass value
 # - -2: step input
