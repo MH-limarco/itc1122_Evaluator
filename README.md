@@ -12,13 +12,13 @@ This is presented as my first practical exercise, and feedback or issues are wel
 * [**Customize your process**](#customize-your-process)
 
 
-## <div align="center">👟Open modular framework</div>
+## <div align="center">👟Open modular framework👟</div>
 <p ="center">
   <img src="assets/modular.png" alt="erf" width="100%">
 </p>
 
 
-## <div align="center">📔Documentation</div>
+## <div align="center">📔Documentation📔</div>
 
 See below for a quickstart and usage example
 
@@ -38,7 +38,7 @@ For alternative installation methods including [Conda](https://anaconda.org/cond
 
 </details>
 
-## <div align="center">👐Getting started</div>
+## <div align="center">👐Getting started👐</div>
 
 <details open>
 <summary>Usage</summary>
@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
 </details>
 
-## <div align="center">🔖Introduction to structure</div>
+## <div align="center">🔖Introduction to structure🔖</div>
 
 |                |                                                                       instruction                                                                       |
 |:--------------:|:-------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -79,7 +79,7 @@ if __name__ == '__main__':
 |  Output-step   |                                              Summarize all experimental results and organize the findings.                                              |
 
 
-## <div align="center">⚒️Architecture example</div>
+## <div align="center">⚒️Architecture example⚒️</div>
 <p = "center">
   <img src="assets/Architecture_diagram.png" alt="erf" width="100%">
 </p>
@@ -87,7 +87,7 @@ if __name__ == '__main__':
 #### Here is the architecture example for `cfg/structure_default.yaml`.
 You can build your own structure.yaml according to your requirements
 
-## <div align="center">📋Customize your process</div>
+## <div align="center">📋Customize your process📋</div>
 <details open>
 <summary>setting.yaml</summary>
 
