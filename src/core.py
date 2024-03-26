@@ -73,6 +73,7 @@ def multi_processing(file, pipeline, in_v):
     df = pd.DataFrame(output_ls)
     exmaple_dir = pipeline[list(pipeline.keys())[-1]]
 
+    print(df)
     exmaple_format = {"輸入":len(exmaple_dir[0]), "輸出": len(exmaple_dir[1])}
     check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in type_format[_key] for _idx in range(_len)]
     df.columns = base_format + check_format
