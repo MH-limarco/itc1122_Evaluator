@@ -2,7 +2,7 @@ import time
 import ast
 from src import *
 
-def main(config, debug):
+def main(config=None, debug=None):
     args = input_args(config, debug)
     Evaluator(args.config, args.debug)
 
@@ -12,6 +12,7 @@ def input_args(default = "setting/pe1.yaml", debug = False):
     parser.add_argument("-debug", help=" ", default=debug)
     args = parser.parse_args()
     return args
+
 
 def Evaluator(PATH, debug):
     start_time = time.monotonic()

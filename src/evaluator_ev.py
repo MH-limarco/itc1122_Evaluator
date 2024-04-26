@@ -1,7 +1,7 @@
 from src import *
 from difflib import get_close_matches
 from itertools import repeat
-import codecs
+import codecs, json
 
 def ev_command_run(input_, args, exmaple=False):
     path, _input = input_["PATH"], input_['INPUT']
@@ -49,8 +49,9 @@ def ev_info_extract(std, args, in_dim, cut_off=-1):
         stdout[0] = stdout[0].replace(':'.join(stdin), '')
 
         value_extract = lambda x: re.findall(re_format, x)
-        values = [i[0] if len(i) >0 else str(nan_value) for i in map(value_extract, stdout)]
-        strings = [line.replace(value, '').replace(':', '') for line, value in zip(stdout, values)]
+        values = [i[0] if len(i) > 0 else str(nan_value) for i in map(value_extract, stdout)]
+        values = [i[0] if type(i) is not str else i for i in values]
+        strings = [line.replace(value if type(value)==str else str(value), '').replace(':', '') for line, value in zip(stdout, values)]
 
         gen_len_val = max(max(len(strings), col_num) - len(values), 0)
         gen_len_str = max(max(len(values), col_num) - len(strings), 0)
@@ -88,9 +89,9 @@ def ev_keyword_extract(std_dir, keyword):
 ##
 def ev_error_check(std, args):
     if std == 'Timeout':
-        return None, None
-    format = ut_format_check(std.args[1], args['sett_'].get('file_format'))
+        return [std], False
     error = ut_get_error_type(std.stderr)
+    format = ut_format_check(std.args[1], args['sett_'].get('file_format'))
     return error, format
 
 
@@ -99,6 +100,7 @@ def ev_dir_check_(exmaple_dir_, test_dir_):
 
         exmaple_dir = exmaple_dir_.copy()
         test_dir = test_dir_.copy()
+
         check_strings, check_values = {}, {}
         exmaple_key = {v: idx for idx, v in enumerate(list(exmaple_dir.keys()))}.copy()
         test_key = test_dir.keys()
@@ -106,22 +108,48 @@ def ev_dir_check_(exmaple_dir_, test_dir_):
 
         for _key in same_key:
             check_strings[_key] = True
-            check_values[_key] = abs(float(exmaple_dir[_key]) - float(test_dir[_key]))
+            try:
+                check_values[_key] = abs(float(exmaple_dir[_key]) - float(test_dir[_key]))
+            except:
+                _exmaple_array = np.array([float(i) if type(i) == str else i for i in json.loads(exmaple_dir[_key])])
+                try:
+                    _test = json.loads(test_dir[_key].replace("'",''))
+                    _test = [float(i) if type(i) == str else i for i in _test]
+                    _test_array = np.array(_test)
+                    check_values[_key] = np.mean(np.abs(_exmaple_array - _test_array))
+
+                except:
+                    check_values[_key] = 12546
+
             exmaple_dir.pop(_key)
             test_dir.pop(_key)
 
         for ex_key, _key in zip(tuple(exmaple_dir.keys()), tuple(test_dir.keys())):
             check_strings[ex_key] = False
-            check_values[ex_key] = abs(float(exmaple_dir[ex_key]) - float(test_dir[_key]))
+            try:
+                check_values[ex_key] = abs(float(exmaple_dir[ex_key]) - float(test_dir[_key]))
+            except:
+                try:
+                    _exmaple_array = np.array(json.loads(exmaple_dir[ex_key]))
+                    _test = json.loads(test_dir[_key])
+                    _test_array = np.array(_test)
+                    check_values[_key] = np.sum(np.abs(_exmaple_array - _test_array))
+                except:
+                    _exmaple_array = np.array(json.loads(exmaple_dir[ex_key]))
+                    _test = json.loads(test_dir[_key])
+                    check_values[_key] = 9999
+
             exmaple_dir.pop(ex_key)
             test_dir.pop(_key)
 
         for _key in exmaple_dir.keys():
             check_strings[_key] = False
-            check_values[_key] = np.inf
+            check_values[_key] = 99999
 
         check_strings = {_key: check_strings[_key] for _key in exmaple_key}
-        check_values = {_key: check_values[_key] for _key in exmaple_key}
+
+
+        check_strings = {_key: check_strings[_key] for _key in exmaple_key}
 
         return [len(test_dir) <= 0|len(exmaple_dir) <= 0], check_strings , check_values
     return False, [False]*len(exmaple_dir_), [False]*len(exmaple_dir_)
@@ -137,13 +165,17 @@ def ev_main_check(dirs_, args):
 
         keys_ = list(out_check[1].keys())
         out_check[1] = list(map(lambda x: out_check[1][x], keys_))
-        out_check[2] = list(map(lambda x: out_check[2][x], keys_))
+        try:
+            out_check[2] = list(map(lambda x: out_check[2][x], keys_))
+        except:
+            out_check[2] = [False] * len(keys_)
 
     if type(in_check[1]) == dict:
         in_check[1] = list(in_check[1].values())
 
     dirs_ = list(dirs_)
     dirs_[-1] = list(dirs_[-1])
+
     dirs_[-1][0] = '' if len(dirs_[-1][0]) < 1 else dirs_[-1][0]
     return list(dirs_[-1]) + in_check + out_check
 
