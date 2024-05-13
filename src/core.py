@@ -63,8 +63,9 @@ def Evaluator(PATH, debug):
     ut_print_end(info, pass_value, start_time)
 
 def multi_processing(file, pipeline, in_v):
+    pool_num = pipeline[1]['cpu_num']
 
-    with Pool(12) as pool:
+    with Pool(pool_num) as pool:
         output = pool.starmap(evaluator_step,tqdm(zip(repeat(pipeline),
                                                       file,
                                                       repeat(in_v)
@@ -73,12 +74,26 @@ def multi_processing(file, pipeline, in_v):
 
     output_ls = [i[0] for i in output]
     foot_note = [i[1] for i in output]
+
     df = pd.DataFrame(output_ls)
+
     exmaple_dir = pipeline[list(pipeline.keys())[-2]]
 
     exmaple_format = {"輸入":len(exmaple_dir[0]), "輸出": len(exmaple_dir[1])}
-    check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in type_format[_key] for _idx in range(_len)]
-    df.columns = base_format + check_format
+
+    try:
+        check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in
+                        type_format[_key] for _idx in range(_len)]
+        df.columns = base_format + check_format
+    except:
+        exmaple_format = {"輸入": len(exmaple_dir[0]), "輸出": df.shape[-1] - len(exmaple_dir[0]) - 5}
+        check_format = [f"評分-{_key} {_idx}" for _key, _len in exmaple_format.items() for _idx in range(_len)]
+        df.columns = base_format[:-2] + check_format
+
+
+
+
+
 
     return df, foot_note
 
@@ -94,7 +109,13 @@ def sigle_processing(file, pipeline, in_v):
     exmaple_dir = pipeline[list(pipeline.keys())[-2]]
 
     exmaple_format = {"輸入":len(exmaple_dir[0]), "輸出": len(exmaple_dir[1])}
-    check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in type_format[_key] for _idx in range(_len)]
 
-    df.columns = base_format + check_format
+    try:
+        check_format = [f"評分-{_key}{_type} {_idx}" for _key, _len in exmaple_format.items() for _type in
+                        type_format[_key] for _idx in range(_len)]
+        df.columns = base_format + check_format
+    except:
+        exmaple_format = {"輸入": len(exmaple_dir[0]), "輸出": df.shape[-1] - len(exmaple_dir[0]) - 5}
+        check_format = [f"評分-{_key} {_idx}" for _key, _len in exmaple_format.items() for _idx in range(_len)]
+        df.columns = base_format[:-2] + check_format
     return df, foot_note

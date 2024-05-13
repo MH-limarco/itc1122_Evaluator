@@ -10,7 +10,9 @@ def read_from_idx_(from_idx, args, pass_value, step_input):
     elif from_idx == -2:
         return step_input
 
-def concat(*kargs):
+def concat(*kargs, _print=False):
+    if _print:
+        print(*kargs)
     return kargs
 
 def begin_step(setting_PATH, ground_PATH=r'setting/essential_setup/base_config.yaml'):

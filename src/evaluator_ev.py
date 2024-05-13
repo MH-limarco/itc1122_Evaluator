@@ -29,38 +29,57 @@ def ev_read_footnote(input_):
 
     return notes, len(notes.replace('#', '').replace('\n', ' ').replace('\'', '').replace('"', '').split())
 
-def ev_info_extract(std, args, in_dim, cut_off=-1):
+def ev_info_extract(std, args, in_dim, cut_off=True, reverse_match=False):
     if std == 'Timeout':
         return [], []
     stdout = std.stdout
     re_format = re.compile(args['sett_']['re_format'])
     col_num, nan_value = args['sett_']['least_col'], args['sett_']['nan_value']
 
-    stdout = stdout.split('\n')
-    if len(stdout[-1]) == 0:
-        stdout = stdout[:-1]
+    if cut_off:
+        stdout = stdout.split('\n')
+        if len(stdout[-1]) == 0:
+            stdout = stdout[:-1]
+    #if cut_off:
+        stdout = '\n'.join(stdout)
 
-    stdout = '\n'.join(stdout)
+
     if len(stdout) > 0:
         stdin = stdout.split(':')[:in_dim]
-        stdout = stdout.replace(':'.join(stdin), '').split('\n')
 
+        stdout = stdout.replace(':'.join(stdin), '')
+        if cut_off:
+            stdout = stdout.split('\n')
+            stdout[0] = stdout[0].replace(':'.join(stdin), '')
+        else:
+            stdout = [stdout]
         stdin = dict(zip(stdin, repeat(0)))
-        stdout[0] = stdout[0].replace(':'.join(stdin), '')
+
 
         value_extract = lambda x: re.findall(re_format, x)
+
         values = [i[0] if len(i) > 0 else str(nan_value) for i in map(value_extract, stdout)]
+
         values = [i[0] if type(i) is not str else i for i in values]
         strings = [line.replace(value if type(value)==str else str(value), '').replace(':', '') for line, value in zip(stdout, values)]
 
         gen_len_val = max(max(len(strings), col_num) - len(values), 0)
         gen_len_str = max(max(len(values), col_num) - len(strings), 0)
 
-        _zip = zip(strings+ [f'ex_{str(_gen)}' for _gen in range(gen_len_str)],
-                                                            values + [nan_value] * gen_len_val)
-
-        return stdin, {(s.replace('\n','') if len(s.replace(' ','')) > 0
+        if not reverse_match:
+            _zip = zip(strings+ [f'ex_{str(_gen)}' for _gen in range(gen_len_str)],
+                                                                values + [nan_value] * gen_len_val)
+        else:
+            _zip = zip(values + [nan_value] * gen_len_val,
+                       strings+ [f'ex_{str(_gen)}' for _gen in range(gen_len_str)])
+        if cut_off:
+            return stdin, {(s.replace('\n','') if len(s.replace(' ','')) > 0
                                             else str(idx)): v for idx, (s, v) in enumerate(_zip)}
+
+        else:
+            return stdin, {(s if len(s.replace(' ','')) > 0
+                                            else str(idx)): v for idx, (s, v) in enumerate(_zip)}
+
     return [], []
 
 ##
@@ -90,6 +109,7 @@ def ev_keyword_extract(std_dir, keyword):
 def ev_error_check(std, args):
     if std == 'Timeout':
         return [std], False
+    #print(std)
     error = ut_get_error_type(std.stderr)
     format = ut_format_check(std.args[1], args['sett_'].get('file_format'))
     return error, format
@@ -187,8 +207,77 @@ def ev_output_formatting(input_, dirs_output, args, foot_note_out):
             input_['PATH'].split(f'{os.sep}')[-1]]
 
     out_ = ut_flatten([*PATH,foot_note_out[1],*dirs_output])
-
     return out_, [foot_note_out[0]]
+
+def ev_midterm2_DP(dirs_, count_str=' X '):
+    #print(args['sett_ground'].format_ls)
+
+    lines = dirs_[1].get(list(dirs_[1].keys())[0]).strip().split('\n')
+
+    matrix = [line.split('|')[1:-1] for line in lines if '|' in line]
+    len_ = [len(i) for i in matrix]
+    rows_len_ = max(len_)
+    columns_len_ = len(matrix)
+
+    count_ = sum([i.count(count_str) for i in matrix])
+
+    visited = [[False] * len(matrix[0]) for _ in range(len(matrix))]
+
+    def is_valid(row, col):
+        return 0 <= row < len(matrix) and 0 <= col < len(matrix[0]) and matrix[row][col] != ' X ' and not visited[row][col]
+
+    def dfs(row, col):
+        visited[row][col] = True
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        for dr, dc in directions:
+            new_row, new_col = row + dr, col + dc
+            if is_valid(new_row, new_col):
+                dfs(new_row, new_col)
+
+    start = None
+    for i in range(len(matrix)):
+        for j in range(len(matrix[0])):
+            if matrix[i][j] != ' X ':
+                start = (i, j)
+                break
+        if start:
+            break
+    if not start:
+        return False  # 沒有找到起點
+    dfs(start[0], start[1])
+    dirs_[1][list(dirs_[1].keys())[0]] = (max(len_) == min(len_), rows_len_, columns_len_), count_, visited[-1][-1]
+    return dirs_
+
+def ev_dir_midterm2_DP_check_(exmaple_dir_, test_dir_):
+
+    out_dir = []
+    for i, (exmaple, test) in enumerate(zip(exmaple_dir_.get('generated'), test_dir_.get('generated'))):
+        try:
+            _ = iter(exmaple)
+            _ = iter(test)
+            out_dir += [max([abs(x-y) for x, y in zip(exmaple, test)]) == 0]
+        except:
+            out_dir += [exmaple - test == 0]
+
+    return out_dir
+
+def ev_midterm2_DP_check(dirs_, args):
+    in_check = list(ev_dir_check_(dirs_[0][0], dirs_[1][0])[:-1])
+    in_check = list(in_check[1].values())
+
+    out_check = list(ev_dir_midterm2_DP_check_(dirs_[0][1], dirs_[1][1]))
+    return list(dirs_[-1]) + in_check + out_check
+
+
+def ev_midterm2_DP_output_formatting(input_, dirs_output, args, foot_note_out):
+
+    PATH = [input_['PATH'].split(f'{os.sep}')[-2].split('_')[0],
+            input_['PATH'].split(f'{os.sep}')[-1]]
+
+    out_ = [*PATH,foot_note_out[1],*dirs_output]
+    return out_, [foot_note_out[0]]
+
+
 
 
 
